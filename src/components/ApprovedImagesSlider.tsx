@@ -21,7 +21,7 @@ export const ApprovedImagesSlider = () => {
   const images = useMemo(() => Array.from(approvedImages), [approvedImages]);
   return (
     <>
-    <Header header={`approved images (${approvedImages.size || 0})`} />
+    <Header header={`approved images (${approvedImages.size || 0})`} tag='h2' fontSize={16}/>
     <ImgContainer role='list'>
     {images.map((src, idx) => <ImagePreview src={src} key={idx}/>)}
     </ImgContainer>
