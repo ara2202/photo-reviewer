@@ -16,7 +16,7 @@ import imagesReducer, { ImagesState } from './imagesSlice';
 type EndSubState = Omit<ImagesState, 'approved' | 'rejected'> & {approved: string[], rejected: string[]};
  
 const SetTransform = createTransform<ImagesState, EndSubState, {images: ImagesState}>(
-  (inboundState) => ({ ...inboundState, approved: [...inboundState.approved], rejected: [...inboundState.rejected] }),
+  (inboundState) => ({ ...inboundState, approved: [...inboundState.approved], rejected: [...inboundState.rejected], isLoading: false, isError: false }),
   (outboundState) => ({ ...outboundState, approved: new Set(outboundState.approved), rejected: new Set(outboundState.rejected) }),
   { whitelist: ['images'] }
 );
