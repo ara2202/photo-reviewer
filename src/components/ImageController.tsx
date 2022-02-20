@@ -51,7 +51,7 @@ export const ImageController: FC = () => {
             alt={image.alt_description || undefined}
           />
         ) : isLoading ? (
-          <Spin size="large" />
+          <Spin size="large" data-testid='antd-spinner' />
         ) : isError ? (
           <Alert
             message="Fetching failed"

@@ -30,7 +30,7 @@ test('initial App state', () => {
 
   expect(screen.getByRole('figure')).toBeInTheDocument();
   
-  const $approveButton = screen.getByRole('button', {name: 'check Approve'});
+  const $approveButton = screen.getByRole('button', {name: 'check Approve'}); // this antd names is weird...
   expect($approveButton).toBeDisabled();
 
   const $loadMoreButton =  screen.getByRole('button', {name: 'reload Load another'});
@@ -46,6 +46,7 @@ test('fetch random image and approval logic', async () => {
   const $loadMoreButton =  screen.getByRole('button', {name: 'reload Load another'});
   
   userEvent.click($loadMoreButton);
+  expect(screen.getByTestId('antd-spinner')).toBeInTheDocument();
   expect($loadMoreButton).toBeDisabled();
   
   const $figure = screen.getByRole('figure');
