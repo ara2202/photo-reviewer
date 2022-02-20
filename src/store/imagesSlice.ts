@@ -8,6 +8,7 @@ export type ImagesState = {
   rejected: Set<string>;
   isLoading: boolean;
   isError: boolean;
+  errorMessage: string | null;
   image: Photo | null;
 };
 
@@ -16,10 +17,11 @@ export const initialState: ImagesState = {
   rejected: new Set([]),
   isLoading: false,
   isError: false,
+  errorMessage: null,
   image: null,
 };
 
-const MAX_RETRIES = 10;
+const MAX_RETRIES = 5;
 
 export const fetchRandomImage = createAsyncThunk<
   Photo | null,
@@ -68,6 +70,7 @@ export const imagesSlice = createSlice({
         state.image = payload;
         state.isError = false;
         state.isLoading = false;
+        state.errorMessage = null;
       } else {
         state.isError = true;
       }
@@ -76,10 +79,12 @@ export const imagesSlice = createSlice({
     builder.addCase(fetchRandomImage.pending, (state) => {
       state.image = null;
       state.isError = false;
+      state.errorMessage = null;
       state.isLoading = true;
     });
 
-    builder.addCase(fetchRandomImage.rejected, (state) => {
+    builder.addCase(fetchRandomImage.rejected, (state, { error }) => {
+      state.errorMessage = error?.message || 'fetching random image failed for some reason';
       state.isError = true;
       state.isLoading = false;
     });

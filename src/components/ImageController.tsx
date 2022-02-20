@@ -24,7 +24,7 @@ const ButtonContainer = styled.div`
 `;
 
 export const ImageController: FC = () => {
-  const { image, isLoading, isError } = useAppSelector(({ images }) => images);
+  const { image, isLoading, isError, errorMessage } = useAppSelector(({ images }) => images);
 
   const dispatch = useAppDispatch();
 
@@ -56,7 +56,7 @@ export const ImageController: FC = () => {
           <Alert
             message="Fetching failed"
             showIcon
-            description="fetching random image failed for some reason, try again"
+            description={errorMessage}
             type="error"
             action={
               <Button
@@ -65,7 +65,7 @@ export const ImageController: FC = () => {
                 onClick={handleFetchImage}
                 shape="round"
               >
-                Refetch
+                Try Again
               </Button>
             }
           />
